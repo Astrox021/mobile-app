@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Upload - CreatorFlow</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#767586",
+                        "on-tertiary-container": "#fdfcff",
+                        "tertiary": "#4f5d70",
+                        "surface-container-highest": "#e0e3e5",
+                        "secondary-fixed": "#dae2fd",
+                        "surface-container": "#eceef0",
+                        "surface-container-high": "#e6e8ea",
+                        "background": "#f7f9fb",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#d4e4fa",
+                        "primary-fixed-dim": "#c0c1ff",
+                        "tertiary-container": "#677689",
+                        "on-primary-fixed-variant": "#2f2ebe",
+                        "on-secondary-container": "#5c647a",
+                        "inverse-primary": "#c0c1ff",
+                        "on-surface": "#191c1e",
+                        "surface": "#f7f9fb",
+                        "surface-bright": "#f7f9fb",
+                        "secondary-container": "#dae2fd",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed": "#0d1c2d",
+                        "secondary": "#565e74",
+                        "outline-variant": "#c7c4d7",
+                        "on-background": "#191c1e",
+                        "surface-container-low": "#f2f4f6",
+                        "on-primary-container": "#fffbff",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#464554",
+                        "surface-variant": "#e0e3e5",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "surface-dim": "#d8dadc",
+                        "primary": "#4648d4",
+                        "on-secondary-fixed": "#131b2e",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#494bd6",
+                        "inverse-surface": "#2d3133",
+                        "tertiary-fixed-dim": "#b9c8de",
+                        "primary-container": "#6063ee",
+                        "primary-fixed": "#e1e0ff",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#07006c",
+                        "on-tertiary-fixed-variant": "#39485a",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "20px",
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "gutter": "16px",
+                        "stack-lg": "32px",
+                        "section-gap": "48px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "600" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "600" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(32px);
+            -webkit-backdrop-filter: blur(32px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0px 10px 30px rgba(15, 23, 42, 0.04);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .fill-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Dashed border animation for dropzone */
+        @keyframes dash {
+            to {
+                stroke-dashoffset: -100;
+            }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background antialiased min-h-screen flex flex-col pt-20 pb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/70 dark:bg-surface-dim/70 backdrop-blur-3xl shadow-sm border-b border-white/10 dark:border-white/5 flex items-center justify-between px-margin-mobile py-4 w-full">
+<button class="text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+</button>
+<h1 class="font-display-lg text-display-lg tracking-tight text-primary dark:text-primary-fixed-dim">CreatorFlow</h1>
+<button class="text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow px-margin-mobile flex flex-col gap-section-gap">
+<!-- Page Title -->
+<section class="mt-stack-lg">
+<h2 class="font-headline-md text-headline-md text-on-surface">Upload Media</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-stack-sm">Select or drop files to begin editing.</p>
+</section>
+<!-- Dropzone Area -->
+<section class="relative">
+<div class="glass-panel rounded-[32px] p-8 flex flex-col items-center justify-center min-h-[300px] border-2 border-dashed border-primary/30 hover:border-primary transition-colors duration-300 cursor-pointer group">
+<div class="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-stack-md group-hover:scale-110 transition-transform duration-300">
+<span class="material-symbols-outlined text-4xl text-primary" data-icon="cloud_upload">cloud_upload</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-stack-sm text-center">Drop your media here</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-center max-w-[250px] mb-stack-lg">Support for high-res images, 4K video, and raw audio files.</p>
+<!-- Action Buttons -->
+<div class="flex gap-gutter w-full max-w-[400px]">
+<button class="flex-1 bg-primary text-on-primary font-label-caps text-label-caps py-4 px-6 rounded-2xl flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-sm" data-icon="image">image</span>
+                        Upload Photo
+                    </button>
+<button class="flex-1 bg-transparent border border-outline-variant text-on-surface font-label-caps text-label-caps py-4 px-6 rounded-2xl flex items-center justify-center gap-2 hover:bg-surface-variant active:scale-95 transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="movie">movie</span>
+                        Upload Reel
+                    </button>
+</div>
+</div>
+</section>
+<!-- Recent Files Grid -->
+<section class="pb-stack-lg">
+<div class="flex justify-between items-end mb-stack-md">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Recent Files</h3>
+<button class="font-label-caps text-label-caps text-primary uppercase tracking-wider hover:opacity-80">View All</button>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-gutter">
+<!-- Thumbnail 1 -->
+<div class="group relative rounded-2xl overflow-hidden aspect-square cursor-pointer">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="A modern minimalist photography studio setup with soft box lighting and a clean white background. High key lighting, crisp shadows, conveying a professional creative space." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBmwv3MRMgtMjO2NwV7wI7qq0pj0iIys_eaYuGXO01GpBbOaE2AsfDnnCBAeW75KJKGats7NlXi_A1gQfkKjbFiaKXqzSqkoj8Qy1TroQfqu4lELAQuQboKlmCHqgICoVYXMH8uHJsYSpzne3fmfAszQoe7l14_-VG0oqrajlzVLtS-E8NA4LDyxz0tlCs9nus58Uh8LXiGG2h3jvC5uaDX37RByaOzn7HpChFod6POMoX5OoISZQA')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-stack-sm">
+<p class="text-white font-body-md text-body-md truncate w-full">IMG_9281.RAW</p>
+</div>
+</div>
+<!-- Thumbnail 2 -->
+<div class="group relative rounded-2xl overflow-hidden aspect-square cursor-pointer">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="A cinematic still of an urban cityscape at golden hour, shot with a wide aperture to create a shallow depth of field. Warm, glowing light hitting concrete surfaces. Modern aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCvmC1QFOjTqYv9YXMfk-BL0vWidt6K1FnX2yR0HrPUC1gDKPZy-awxHUDZj7ZJ7YL0OjCDzFJjgnuhMRlZxjframrjKtgyIWaAtY6NV43scfGDD5GyePITPobW4WsIhZW2gK0BXXvsjzu1OkZZH6Y5vrOKUKR5qqnqqMI1Y-xz1qdxyhgtzPuFH09zRCDk5ISqg6UddwkcJyHKXo2hNDfgqEmWPTF8osmHgkVZ1zbpIVQtJoCRH2c')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-stack-sm">
+<p class="text-white font-body-md text-body-md truncate w-full">City_Broll_v2.mp4</p>
+</div>
+<!-- Video Indicator -->
+<div class="absolute top-2 right-2 bg-black/40 backdrop-blur-md rounded-full p-1 flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-xs" data-icon="play_arrow">play_arrow</span>
+</div>
+</div>
+<!-- Thumbnail 3 -->
+<div class="group relative rounded-2xl overflow-hidden aspect-square cursor-pointer hidden md:block">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Abstract macro photography of flowing ink in water, creating elegant, sweeping curves in shades of deep indigo and soft white. Minimalist composition, clean, premium feel." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD7J6wv8DPS4S1D92Ji3r8lTxwtUXOikQUu9I1jGv_VeJOwS2yvSo-P-LmViSnri6-URv2B4Oqs3fsNhxoVXz06Z_K5p1HhBMBMqWxdt1ZA1ulnwD2H7hsnzz-AQFg_FVJNxu0JnIMYN3t-ysDIavvnsnFUG4llhxChaBUo5qLzi1MddSbLWDiXCPqiV7wZZBtb_QmgLPG-kgy2rC_T2_xfSBFu6z7HUIwfBZWgHP-A53-4UnQrV6E')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-stack-sm">
+<p class="text-white font-body-md text-body-md truncate w-full">Abstract_01.jpg</p>
+</div>
+</div>
+<!-- Thumbnail 4 -->
+<div class="group relative rounded-2xl overflow-hidden aspect-square cursor-pointer hidden md:block">
+<div class="w-full h-full bg-surface-variant flex items-center justify-center transition-transform duration-500 group-hover:scale-105">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant" data-icon="audio_file">audio_file</span>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-stack-sm">
+<p class="text-white font-body-md text-body-md truncate w-full">Voiceover_Final.wav</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl bg-surface/70 dark:bg-surface-dim/70 backdrop-blur-3xl shadow-[0px_-10px_30px_rgba(15,23,42,0.04)] border-t border-white/10 dark:border-white/5 flex justify-around items-center h-16 px-margin-mobile w-full md:hidden">
+<a class="flex flex-col items-center gap-1 text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-caps text-label-caps">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary dark:text-primary-fixed-dim font-bold hover:text-primary dark:hover:text-primary-fixed-dim active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined fill-icon" data-icon="add_circle">add_circle</span>
+<span class="font-label-caps text-label-caps">Upload</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="edit_note">edit_note</span>
+<span class="font-label-caps text-label-caps">Drafts</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-caps text-label-caps">Profile</span>
+</a>
+</nav>
+<!-- Desktop Sidebar Nav (Hidden on Mobile) - Simplified for this layout, assuming main nav is top/bottom based on JSON -->
+<nav class="hidden md:flex fixed left-0 top-0 h-full w-20 flex-col items-center py-24 gap-8 bg-surface/70 backdrop-blur-3xl border-r border-white/10 shadow-sm z-40">
+<a class="p-3 text-on-surface-variant hover:text-primary hover:bg-primary/5 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="home">home</span>
+</a>
+<a class="p-3 text-primary bg-primary/10 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined fill-icon text-2xl" data-icon="add_circle">add_circle</span>
+</a>
+<a class="p-3 text-on-surface-variant hover:text-primary hover:bg-primary/5 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="edit_note">edit_note</span>
+</a>
+<a class="p-3 text-on-surface-variant hover:text-primary hover:bg-primary/5 rounded-xl transition-all mt-auto mb-4" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="person">person</span>
+</a>
+</nav>
+</body></html>

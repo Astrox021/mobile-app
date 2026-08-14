@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CreatorFlow - Edit Caption</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        [data-weight="fill"] .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config injected from system prompt -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#39485a",
+                        "surface": "#f7f9fb",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#d8dadc",
+                        "surface-container": "#eceef0",
+                        "on-primary-container": "#fffbff",
+                        "outline": "#767586",
+                        "tertiary-fixed-dim": "#b9c8de",
+                        "on-secondary-container": "#5c647a",
+                        "surface-container-high": "#e6e8ea",
+                        "primary-container": "#6063ee",
+                        "surface-container-low": "#f2f4f6",
+                        "tertiary-fixed": "#d4e4fa",
+                        "on-error-container": "#93000a",
+                        "background": "#f7f9fb",
+                        "surface-bright": "#f7f9fb",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "on-secondary-fixed": "#131b2e",
+                        "primary-fixed": "#e1e0ff",
+                        "tertiary-container": "#677689",
+                        "primary": "#4648d4",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-surface-variant": "#464554",
+                        "on-primary-fixed-variant": "#2f2ebe",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed": "#07006c",
+                        "surface-tint": "#494bd6",
+                        "on-tertiary-fixed": "#0d1c2d",
+                        "secondary-fixed": "#dae2fd",
+                        "on-tertiary-container": "#fdfcff",
+                        "surface-variant": "#e0e3e5",
+                        "tertiary": "#4f5d70",
+                        "surface-container-highest": "#e0e3e5",
+                        "secondary": "#565e74",
+                        "inverse-surface": "#2d3133",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#191c1e",
+                        "outline-variant": "#c7c4d7",
+                        "on-background": "#191c1e",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "primary-fixed-dim": "#c0c1ff",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-primary": "#c0c1ff",
+                        "secondary-container": "#dae2fd",
+                        "on-secondary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-md": "16px",
+                        "gutter": "16px",
+                        "stack-lg": "32px",
+                        "section-gap": "48px",
+                        "margin-mobile": "20px",
+                        "stack-sm": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md overflow-x-hidden">
+<!-- TopAppBar from JSON -->
+<!-- Content: Edit Caption (Translating Intent to Header) -->
+<header class="fixed top-0 w-full z-50 bg-surface/70 dark:bg-surface-dim/70 backdrop-blur-3xl shadow-sm border-b border-white/10 dark:border-white/5">
+<div class="flex items-center justify-between px-margin-mobile py-4 w-full">
+<div class="flex items-center gap-4">
+<button class="active:scale-95 transition-transform duration-200 text-on-surface hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm text-primary dark:text-primary-fixed-dim">Edit Caption</h1>
+</div>
+<!-- Notifications icon kept from JSON, but secondary to the back action for this screen -->
+<button class="active:scale-95 transition-transform duration-200 text-on-surface hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-grow pt-24 pb-32 px-margin-mobile flex flex-col gap-section-gap">
+<!-- Editable Caption Area -->
+<section class="flex flex-col gap-stack-sm">
+<div class="bg-surface-container-lowest rounded-xl p-5 shadow-[0px_10px_30px_rgba(15,23,42,0.04)] relative">
+<textarea class="w-full bg-transparent border-none focus:ring-0 p-0 text-body-lg font-body-lg text-on-surface resize-none h-32" placeholder="Write a caption...">Just launched the new dashboard! 🚀 #UXDesign #CreatorFlow</textarea>
+<div class="absolute bottom-4 right-5 text-on-surface-variant font-label-caps text-label-caps opacity-60">
+                    61 / 2200
+                </div>
+</div>
+</section>
+<!-- AI Tone Selection -->
+<section class="flex flex-col gap-stack-md">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Tone</h2>
+<div class="flex flex-wrap gap-2">
+<button class="px-4 py-2 rounded-full bg-primary text-on-primary font-label-caps text-label-caps active:scale-95 transition-transform">
+                    Professional
+                </button>
+<button class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-label-caps text-label-caps active:scale-95 transition-transform hover:bg-surface-variant">
+                    Witty
+                </button>
+<button class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-label-caps text-label-caps active:scale-95 transition-transform hover:bg-surface-variant">
+                    Hype
+                </button>
+<button class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-label-caps text-label-caps active:scale-95 transition-transform hover:bg-surface-variant">
+                    Minimal
+                </button>
+<button class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-label-caps text-label-caps active:scale-95 transition-transform hover:bg-surface-variant">
+                    Storyteller
+                </button>
+</div>
+</section>
+<!-- AI Actions Bento -->
+<section class="flex flex-col gap-stack-md">
+<h2 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="auto_awesome">auto_awesome</span>
+                AI Actions
+            </h2>
+<div class="grid grid-cols-2 gap-4">
+<button class="flex flex-col items-center justify-center gap-2 p-4 rounded-2xl bg-surface-container-lowest shadow-[0px_10px_30px_rgba(15,23,42,0.04)] border border-transparent hover:border-primary-fixed-dim hover:bg-surface-bright transition-all active:scale-95">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="short_text">short_text</span>
+<span class="font-body-md text-body-md text-on-surface">Shorten</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-2 p-4 rounded-2xl bg-surface-container-lowest shadow-[0px_10px_30px_rgba(15,23,42,0.04)] border border-transparent hover:border-primary-fixed-dim hover:bg-surface-bright transition-all active:scale-95">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="add_reaction">add_reaction</span>
+<span class="font-body-md text-body-md text-on-surface">Add Emojis</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-2 p-4 rounded-2xl bg-surface-container-lowest shadow-[0px_10px_30px_rgba(15,23,42,0.04)] border border-transparent hover:border-primary-fixed-dim hover:bg-surface-bright transition-all active:scale-95">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="bolt">bolt</span>
+<span class="font-body-md text-body-md text-on-surface">Make it Punchy</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-2 p-4 rounded-2xl bg-surface-container-lowest shadow-[0px_10px_30px_rgba(15,23,42,0.04)] border border-transparent hover:border-primary-fixed-dim hover:bg-surface-bright transition-all active:scale-95">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="magic_button">magic_button</span>
+<span class="font-body-md text-body-md text-on-surface text-center">Alternatives</span>
+</button>
+</div>
+</section>
+<!-- Action Buttons Area -->
+<div class="flex flex-col gap-3 mt-4">
+<button class="w-full bg-primary text-on-primary py-4 rounded-2xl font-headline-sm text-headline-sm active:scale-95 transition-transform duration-200">
+                Apply Changes
+            </button>
+<button class="w-full bg-transparent text-primary py-4 rounded-2xl font-headline-sm text-headline-sm active:scale-95 transition-transform duration-200 border border-outline-variant hover:bg-surface-variant">
+                Cancel
+            </button>
+</div>
+</main>
+<!-- BottomNavBar from JSON (Drafts is Active) -->
+<!-- Note: While a purely transactional screen might hide the nav, editing a draft sits conceptually within 'Drafts' in the hierarchy requested by the user prompt. We follow the JSON shell mandate while suppressing it if strictly 'dead end'. Given prompt instruction: "Navigation: BottomNavBar with 'Drafts' active.", we render it. -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 rounded-t-xl bg-surface/70 dark:bg-surface-dim/70 backdrop-blur-3xl shadow-[0px_-10px_30px_rgba(15,23,42,0.04)] border-t border-white/10 dark:border-white/5">
+<div class="flex justify-around items-center h-16 px-margin-mobile w-full">
+<!-- Home: Inactive -->
+<button class="flex flex-col items-center gap-1 text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-caps text-label-caps">Home</span>
+</button>
+<!-- Drafts: Active (Matches JSON instruction) -->
+<button class="flex flex-col items-center gap-1 text-primary dark:text-primary-fixed-dim font-bold hover:text-primary dark:hover:text-primary-fixed-dim active:scale-90 transition-transform duration-200">
+<div data-weight="fill">
+<span class="material-symbols-outlined" data-icon="edit_note">edit_note</span>
+</div>
+<span class="font-label-caps text-label-caps">Drafts</span>
+</button>
+<!-- History: Inactive -->
+<button class="flex flex-col items-center gap-1 text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-label-caps text-label-caps">History</span>
+</button>
+<!-- Profile: Inactive -->
+<button class="flex flex-col items-center gap-1 text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-caps text-label-caps">Profile</span>
+</button>
+</div>
+</nav>
+</body></html>

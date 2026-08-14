@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+  <title>CreatorFlow - Mobile Social Studio</title>
+  
+  <!-- Tailwind CSS CDN with Plugins -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  
+  <!-- Google Fonts & Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  
+  <!-- Custom Application Styles -->
+  <link rel="stylesheet" href="css/app.css"/>
+  
+  <!-- Tailwind Theme Configuration matching DESIGN.md -->
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#4648d4",
+            "primary-container": "#6063ee",
+            "on-primary": "#ffffff",
+            "on-primary-container": "#fffbff",
+            "primary-fixed": "#e1e0ff",
+            "primary-fixed-dim": "#c0c1ff",
+            "surface": "#f7f9fb",
+            "surface-dim": "#d8dadc",
+            "surface-bright": "#f7f9fb",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low": "#f2f4f6",
+            "surface-container": "#eceef0",
+            "surface-container-high": "#e6e8ea",
+            "surface-container-highest": "#e0e3e5",
+            "on-surface": "#191c1e",
+            "on-surface-variant": "#464554",
+            "outline": "#767586",
+            "outline-variant": "#c7c4d7",
+            "background": "#f7f9fb",
+            "on-background": "#191c1e",
+            "secondary": "#565e74",
+            "secondary-container": "#dae2fd",
+            "on-secondary": "#ffffff",
+            "tertiary": "#4f5d70",
+            "tertiary-container": "#677689"
+          },
+          spacing: {
+            "margin-mobile": "20px",
+            "stack-sm": "8px",
+            "stack-md": "16px",
+            "stack-lg": "32px",
+            "gutter": "16px",
+            "section-gap": "48px"
+          },
+          fontFamily: {
+            "body-md": ["Inter", "sans-serif"],
+            "body-lg": ["Inter", "sans-serif"],
+            "headline-sm": ["Inter", "sans-serif"],
+            "headline-md": ["Inter", "sans-serif"],
+            "display-lg": ["Inter", "sans-serif"],
+            "label-caps": ["Inter", "sans-serif"]
+          },
+          fontSize: {
+            "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "600" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "600" }]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-[#0b0f19] text-on-surface antialiased font-body-md selection:bg-primary-container selection:text-on-primary-container">
+
+  <!-- Desktop Preview Switcher Toolbar (Visible on Desktop) -->
+  <div class="preview-mode-bar">
+    <div class="bg-gray-900/90 text-white backdrop-blur-xl px-4 py-2 rounded-full border border-white/10 shadow-2xl flex items-center gap-3">
+      <span class="text-xs font-semibold text-gray-400">View Mode:</span>
+      <button id="btn-toggle-frame-mode" class="flex items-center gap-1.5 px-3 py-1 bg-primary text-white rounded-full text-xs font-medium hover:bg-primary-container transition-all">
+        <span class="material-symbols-outlined text-sm">smartphone</span>
+        <span>Toggle Mobile Frame</span>
+      </button>
+      <a href="#quick-guide" onclick="showToast('Tip: Click recent media presets to test fast!', 'tips_and_updates'); return false;" class="text-gray-400 hover:text-white transition-colors">
+        <span class="material-symbols-outlined text-base">help</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container"></div>
+
+  <!-- Main Viewport Wrapper -->
+  <div class="app-viewport-wrapper framed-mode">
+    <div class="mobile-frame-container shadow-2xl">
+
+      <!-- ================================================================= -->
+      <!-- SCREEN 1: UPLOAD CONTENT (upload_content) -->
+      <!-- ================================================================= -->
+      <section id="screen-upload" class="screen-view active">
+        <!-- Top App Bar -->
+        <header class="sticky top-0 w-full z-40 glass-header flex items-center justify-between px-margin-mobile py-4">
+          <button onclick="showToast('AI Studio Assistant is active', 'auto_awesome')" class="text-on-surface-variant hover:text-primary transition-colors active:scale-95">
+            <span class="material-symbols-outlined">auto_awesome</span>
+          </button>
+          <h1 class="font-display-lg text-2xl font-bold tracking-tight text-primary">CreatorFlow</h1>
+          <button onclick="showToast('No new notifications', 'notifications')" class="text-on-surface-variant hover:text-primary transition-colors active:scale-95">
+            <span class="material-symbols-outlined">notifications</span>
+          </button>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="flex-grow px-margin-mobile flex flex-col gap-6 pt-5 pb-6">
+          <!-- Page Title -->
+          <div>
+            <h2 class="font-headline-md text-headline-md text-on-surface font-bold">Upload Media</h2>
+            <p class="font-body-md text-body-md text-on-surface-variant mt-1">Select or drop files to begin editing.</p>
+          </div>
+
+          <!-- Dropzone Area -->
+          <div id="upload-dropzone" class="glass-panel rounded-[32px] p-7 flex flex-col items-center justify-center min-h-[290px] border-2 border-dashed border-primary/35 hover:border-primary transition-all duration-300 cursor-pointer group relative">
+            <!-- Hidden Native File Inputs -->
+            <input type="file" id="file-input-photo" accept="image/*" class="hidden"/>
+            <input type="file" id="file-input-reel" accept="video/*" class="hidden"/>
+
+            <div class="w-18 h-18 p-4 rounded-full bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+              <span class="material-symbols-outlined text-4xl text-primary">cloud_upload</span>
+            </div>
+            <h3 class="font-headline-sm text-lg font-semibold text-on-surface mb-1 text-center">Drop your media here</h3>
+            <p class="font-body-md text-xs text-on-surface-variant text-center max-w-[240px] mb-6">Support for high-res images, 4K reel video, and raw audio files.</p>
+            
+            <!-- Action Buttons -->
+            <div class="flex gap-3 w-full max-w-[340px]">
+              <button id="btn-upload-photo" class="flex-1 bg-primary text-on-primary font-label-caps text-label-caps py-3.5 px-4 rounded-2xl flex items-center justify-center gap-2 active:scale-95 hover:bg-primary-container transition-all shadow-[0px_4px_12px_rgba(70,72,212,0.25)]">
+                <span class="material-symbols-outlined text-base">image</span>
+                <span>Upload Photo</span>
+              </button>
+              <button id="btn-upload-reel" class="flex-1 bg-surface-container-lowest border border-outline-variant text-on-surface font-label-caps text-label-caps py-3.5 px-4 rounded-2xl flex items-center justify-center gap-2 hover:bg-surface-variant active:scale-95 transition-all shadow-sm">
+                <span class="material-symbols-outlined text-base">movie</span>
+                <span>Upload Reel</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Active Upload Preview Card (When File Selected) -->
+          <div id="selected-media-preview-card" class="bg-surface-container-lowest rounded-2xl p-4 shadow-[0px_10px_30px_rgba(15,23,42,0.04)] border border-primary/20 flex items-center justify-between gap-3 animate-fade-in">
+            <div class="flex items-center gap-3 min-w-0">
+              <div id="selected-media-thumb" class="w-14 h-14 rounded-xl bg-cover bg-center shrink-0 border border-black/5 relative overflow-hidden" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBmwv3MRMgtMjO2NwV7wI7qq0pj0iIys_eaYuGXO01GpBbOaE2AsfDnnCBAeW75KJKGats7NlXi_A1gQfkKjbFiaKXqzSqkoj8Qy1TroQfqu4lELAQuQboKlmCHqgICoVYXMH8uHJsYSpzne3fmfAszQoe7l14_-VG0oqrajlzVLtS-E8NA4LDyxz0tlCs9nus58Uh8LXiGG2h3jvC5uaDX37RByaOzn7HpChFod6POMoX5OoISZQA')">
+                <div id="selected-media-video-badge" class="hidden absolute inset-0 bg-black/40 flex items-center justify-center">
+                  <span class="material-symbols-outlined text-white text-sm fill-icon">play_arrow</span>
+                </div>
+              </div>
+              <div class="min-w-0">
+                <p id="selected-media-name" class="font-headline-sm text-sm font-semibold text-on-surface truncate">IMG_9281.RAW</p>
+                <p id="selected-media-size" class="font-body-md text-xs text-on-surface-variant">RAW Photo • 24.8 MB</p>
+                <span class="inline-flex items-center gap-1 text-[11px] text-emerald-600 font-semibold mt-0.5">
+                  <span class="material-symbols-outlined text-xs">check_circle</span> Ready to optimize
+                </span>
+              </div>
+            </div>
+            <button id="btn-proceed-to-platforms" class="bg-primary text-white p-3 rounded-xl hover:bg-primary-container active:scale-95 transition-all shadow-md shrink-0">
+              <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+          </div>
+
+          <!-- Recent Files Grid Preset Library -->
+          <div>
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="font-headline-sm text-base font-semibold text-on-surface">Recent Files</h3>
+              <span class="font-label-caps text-label-caps text-primary tracking-wider uppercase">Tap to Load</span>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <!-- Preset 1 -->
+              <div class="recent-preset-item group relative rounded-2xl overflow-hidden aspect-square cursor-pointer border border-transparent hover:border-primary shadow-sm active:scale-95 transition-all" data-sample-id="sample-1">
+                <div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBmwv3MRMgtMjO2NwV7wI7qq0pj0iIys_eaYuGXO01GpBbOaE2AsfDnnCBAeW75KJKGats7NlXi_A1gQfkKjbFiaKXqzSqkoj8Qy1TroQfqu4lELAQuQboKlmCHqgICoVYXMH8uHJsYSpzne3fmfAszQoe7l14_-VG0oqrajlzVLtS-E8NA4LDyxz0tlCs9nus58Uh8LXiGG2h3jvC5uaDX37RByaOzn7HpChFod6POMoX5OoISZQA')"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-2.5">
+                  <div class="w-full">
+                    <span class="bg-primary/90 text-white font-label-caps text-[9px] px-1.5 py-0.5 rounded-full mb-1 inline-block">RAW Photo</span>
+                    <p class="text-white font-body-md text-xs truncate">IMG_9281.RAW</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Preset 2 -->
+              <div class="recent-preset-item group relative rounded-2xl overflow-hidden aspect-square cursor-pointer border border-transparent hover:border-primary shadow-sm active:scale-95 transition-all" data-sample-id="sample-2">
+                <div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCvmC1QFOjTqYv9YXMfk-BL0vWidt6K1FnX2yR0HrPUC1gDKPZy-awxHUDZj7ZJ7YL0OjCDzFJjgnuhMRlZxjframrjKtgyIWaAtY6NV43scfGDD5GyePITPobW4WsIhZW2gK0BXXvsjzu1OkZZH6Y5vrOKUKR5qqnqqMI1Y-xz1qdxyhgtzPuFH09zRCDk5ISqg6UddwkcJyHKXo2hNDfgqEmWPTF8osmHgkVZ1zbpIVQtJoCRH2c')"></div>
+                <div class="absolute top-2 right-2 bg-black/50 backdrop-blur-md rounded-full p-1 flex items-center justify-center">
+                  <span class="material-symbols-outlined text-white text-xs fill-icon">play_arrow</span>
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-2.5">
+                  <div class="w-full">
+                    <span class="bg-purple-600/90 text-white font-label-caps text-[9px] px-1.5 py-0.5 rounded-full mb-1 inline-block">4K Reel</span>
+                    <p class="text-white font-body-md text-xs truncate">City_Broll_v2.mp4</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Preset 3 -->
+              <div class="recent-preset-item group relative rounded-2xl overflow-hidden aspect-square cursor-pointer border border-transparent hover:border-primary shadow-sm active:scale-95 transition-all" data-sample-id="sample-3">
+                <div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD7J6wv8DPS4S1D92Ji3r8lTxwtUXOikQUu9I1jGv_VeJOwS2yvSo-P-LmViSnri6-URv2B4Oqs3fsNhxoVXz06Z_K5p1HhBMBMqWxdt1ZA1ulnwD2H7hsnzz-AQFg_FVJNxu0JnIMYN3t-ysDIavvnsnFUG4llhxChaBUo5qLzi1MddSbLWDiXCPqiV7wZZBtb_QmgLPG-kgy2rC_T2_xfSBFu6z7HUIwfBZWgHP-A53-4UnQrV6E')"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-2.5">
+                  <div class="w-full">
+                    <span class="bg-indigo-600/90 text-white font-label-caps text-[9px] px-1.5 py-0.5 rounded-full mb-1 inline-block">Macro Art</span>
+                    <p class="text-white font-body-md text-xs truncate">Abstract_01.jpg</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Preset 4 -->
+              <div class="recent-preset-item group relative rounded-2xl overflow-hidden aspect-square cursor-pointer border border-transparent hover:border-primary shadow-sm active:scale-95 transition-all" data-sample-id="sample-4">
+                <div class="w-full h-full bg-surface-container-high flex flex-col items-center justify-center transition-transform duration-500 group-hover:scale-105">
+                  <span class="material-symbols-outlined text-3xl text-on-surface-variant mb-1">graphic_eq</span>
+                  <span class="font-label-caps text-[10px] text-on-surface-variant font-medium">Waveform Master</span>
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-2.5">
+                  <div class="w-full">
+                    <span class="bg-amber-600/90 text-white font-label-caps text-[9px] px-1.5 py-0.5 rounded-full mb-1 inline-block">Podcast WAV</span>
+                    <p class="text-white font-body-md text-xs truncate">Voiceover_Final.wav</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- SCREEN 2: SELECT PLATFORMS (select_platforms) -->
+      <!-- ================================================================= -->
+      <section id="screen-platforms" class="screen-view">
+        <!-- Stepper Header -->
+        <header class="sticky top-0 w-full z-40 glass-header px-margin-mobile pt-4 pb-3 flex flex-col gap-3">
+          <div class="flex items-center justify-between">
+            <button data-action="back" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-variant transition-colors active:scale-95 text-on-surface">
+              <span class="material-symbols-outlined">arrow_back</span>
+            </button>
+            <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest font-bold">Step 2 of 3</span>
+            <div class="w-10"></div>
+          </div>
+          <!-- Progress Bar -->
+          <div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+            <div class="h-full bg-primary w-2/3 rounded-full transition-all duration-500 ease-in-out"></div>
+          </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow px-margin-mobile py-4 flex flex-col gap-5 pb-32">
+          <div class="text-center px-2">
+            <h1 class="font-headline-md text-2xl font-bold text-on-surface">Select Platforms</h1>
+            <p class="font-body-md text-xs text-on-surface-variant mt-1">Choose where you want to publish your content. We'll optimize the format for each.</p>
+          </div>
+
+          <!-- Active Media Summary Pill -->
+          <div class="bg-surface-container-lowest rounded-2xl p-2.5 shadow-sm border border-surface-variant flex items-center justify-between">
+            <div id="platform-media-summary-pill" class="flex items-center gap-2.5 min-w-0">
+              <div class="w-8 h-8 rounded-lg bg-cover bg-center shrink-0 border border-white/30" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBmwv3MRMgtMjO2NwV7wI7qq0pj0iIys_eaYuGXO01GpBbOaE2AsfDnnCBAeW75KJKGats7NlXi_A1gQfkKjbFiaKXqzSqkoj8Qy1TroQfqu4lELAQuQboKlmCHqgICoVYXMH8uHJsYSpzne3fmfAszQoe7l14_-VG0oqrajlzVLtS-E8NA4LDyxz0tlCs9nus58Uh8LXiGG2h3jvC5uaDX37RByaOzn7HpChFod6POMoX5OoISZQA')"></div>
+              <div class="truncate text-xs font-semibold text-on-surface">IMG_9281.RAW (RAW Photo)</div>
+            </div>
+            <button onclick="navigateTo('screen-upload')" class="text-primary font-label-caps text-xs px-2 py-1 rounded-lg hover:bg-primary/5">Change</button>
+          </div>
+
+          <!-- Custom AI Context Prompt Input -->
+          <div class="bg-surface-container-lowest rounded-2xl p-4 shadow-sm border border-surface-variant flex flex-col gap-2">
+            <div class="flex items-center gap-1.5 text-primary">
+              <span class="material-symbols-outlined text-sm fill-icon">auto_awesome</span>
+              <label for="platform-topic-input" class="font-label-caps text-xs font-bold uppercase tracking-wider text-on-surface">Post Topic / Focus (Optional)</label>
+            </div>
+            <input type="text" id="platform-topic-input" placeholder="e.g., Product sprint launch, UI/UX tips, Reel breakdown" class="w-full bg-surface-container-low border-0 rounded-xl px-3.5 py-2.5 text-sm text-on-surface focus:ring-2 focus:ring-primary placeholder-on-surface-variant/60" value="Product design sprint & analytics dashboard launch"/>
+          </div>
+
+          <!-- Platform Selection Cards -->
+          <div class="flex flex-col gap-3">
+            <div class="flex justify-between items-center px-1">
+              <span class="font-label-caps text-xs uppercase font-bold text-on-surface-variant">Channels</span>
+              <button id="btn-select-all-platforms" class="font-label-caps text-xs text-primary uppercase font-bold hover:opacity-80">Deselect All</button>
+            </div>
+
+            <!-- LinkedIn -->
+            <label class="platform-select-card group relative flex items-center p-4 bg-surface-container-lowest rounded-2xl cursor-pointer transition-all duration-200 card-pressable shadow-[0px_10px_30px_rgba(15,23,42,0.04)] border border-primary border-transparent">
+              <div class="w-11 h-11 rounded-xl bg-[#0A66C2]/10 flex items-center justify-center text-[#0A66C2] mr-3.5 shrink-0">
+                <span class="material-symbols-outlined fill-icon text-2xl">work</span>
+              </div>
+              <div class="flex-1 min-w-0">
+                <h3 class="font-headline-sm text-base font-semibold text-on-surface">LinkedIn</h3>
+                <p class="font-body-md text-xs text-on-surface-variant truncate">Professional Network • Article & Post</p>
+              </div>
+              <div class="ml-2">
+                <label class="custom-toggle">
+                  <input type="checkbox" checked class="platform-toggle-input" data-platform="linkedin"/>
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+            </label>
+
+            <!-- Instagram -->
+            <label class="platform-select-card group relative flex items-center p-4 bg-surface-container-lowest rounded-2xl cursor-pointer transition-all duration-200 card-pressable shadow-[0px_10px_30px_rgba(15,23,42,0.04)] border border-primary border-transparent">
+              <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] flex items-center justify-center text-white mr-3.5 shrink-0">
+                <span class="material-symbols-outlined fill-icon text-2xl">photo_camera</span>
+              </div>
+              <div class="flex-1 min-w-0">
+                <h3 class="font-headline-sm text-base font-semibold text-on-surface">Instagram</h3>
+                <p class="font-body-md text-xs text-on-surface-variant truncate">Visual Feed • Square/Reel</p>
+              </div>
+              <div class="ml-2">
+                <label class="custom-toggle">
+                  <input type="checkbox" checked class="platform-toggle-input" data-platform="instagram"/>
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+            </label>
+
+            <!-- X (Twitter) -->
+            <label class="platform-select-card group relative flex items-center p-4 bg-surface-container-lowest rounded-2xl cursor-pointer transition-all duration-200 card-pressable shadow-[0px_10px_30px_rgba(15,23,42,0.04)] border border-primary border-transparent">
+              <div class="w-11 h-11 rounded-xl bg-black flex items-center justify-center text-white mr-3.5 shrink-0">
+                <span class="font-bold text-lg leading-none">𝕏</span>
+              </div>
+              <div class="flex-1 min-w-0">
+                <h3 class="font-headline-sm text-base font-semibold text-on-surface">X (Twitter)</h3>
+                <p class="font-body-md text-xs text-on-surface-variant truncate">Microblogging • Thread & Media</p>
+              </div>
+              <div class="ml-2">
+                <label class="custom-toggle">
+                  <input type="checkbox" checked class="platform-toggle-input" data-platform="x"/>
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+            </label>
+
+            <!-- Reddit -->
+            <label class="platform-select-card group relative flex items-center p-4 bg-surface-container-lowest rounded-2xl cursor-pointer transition-all duration-200 card-pressable shadow-[0px_10px_30px_rgba(15,23,42,0.04)] border border-primary border-transparent">
+              <div class="w-11 h-11 rounded-xl bg-[#FF4500]/10 flex items-center justify-center text-[#FF4500] mr-3.5 shrink-0">
+                <span class="material-symbols-outlined fill-icon text-2xl">forum</span>
+              </div>
+              <div class="flex-1 min-w-0">
+                <h3 class="font-headline-sm text-base font-semibold text-on-surface">Reddit</h3>
+                <p class="font-body-md text-xs text-on-surface-variant truncate">Community Forums • Text & Link</p>
+              </div>
+              <div class="ml-2">
+                <label class="custom-toggle">
+                  <input type="checkbox" checked class="platform-toggle-input" data-platform="reddit"/>
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+            </label>
+          </div>
+        </main>
+
+        <!-- Floating Bottom Continue Bar -->
+        <div class="fixed bottom-0 left-0 w-full p-4 glass-nav z-30">
+          <div class="max-w-[480px] mx-auto">
+            <button id="btn-platforms-continue" class="w-full py-4 px-6 rounded-2xl bg-primary text-white font-headline-sm text-base font-semibold text-center active:scale-[0.98] transition-all flex justify-center items-center gap-2 shadow-lg hover:bg-primary-container">
+              <span class="material-symbols-outlined text-lg fill-icon">auto_awesome</span>
+              <span>Generate 4 Platform Posts</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- SCREEN 3: RESULTS DASHBOARD (results_dashboard) -->
+      <!-- ================================================================= -->
+      <section id="screen-results" class="screen-view">
+        <!-- Top App Bar -->
+        <header class="sticky top-0 w-full z-40 glass-header flex items-center justify-between px-margin-mobile py-4">
+          <button data-action="back" class="text-on-surface-variant hover:text-primary transition-colors active:scale-95">
+            <span class="material-symbols-outlined">arrow_back</span>
+          </button>
+          <h1 class="font-display-lg text-xl font-bold tracking-tight text-primary">CreatorFlow</h1>
+          <button onclick="openShareModal()" class="text-on-surface-variant hover:text-primary transition-colors active:scale-95">
+            <span class="material-symbols-outlined">share</span>
+          </button>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow px-margin-mobile py-4 flex flex-col gap-4 pb-36">
+          <!-- Platform Tabs -->
+          <nav class="w-full overflow-x-auto hide-scrollbar">
+            <ul class="flex items-center gap-2 min-w-max pb-1">
+              <li>
+                <button class="platform-result-tab px-4 py-2 rounded-full bg-primary text-on-primary font-label-caps text-label-caps shadow-[0px_4px_12px_rgba(70,72,212,0.25)] transition-all flex items-center gap-1.5 active:scale-95" data-platform-tab="linkedin">
+                  <span class="material-symbols-outlined text-sm fill-icon">work</span>
+                  <span>LinkedIn</span>
+                </button>
+              </li>
+              <li>
+                <button class="platform-result-tab px-4 py-2 rounded-full bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest transition-colors font-label-caps text-label-caps flex items-center gap-1.5 active:scale-95" data-platform-tab="instagram">
+                  <span class="material-symbols-outlined text-sm fill-icon">photo_camera</span>
+                  <span>Instagram</span>
+                </button>
+              </li>
+              <li>
+                <button class="platform-result-tab px-4 py-2 rounded-full bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest transition-colors font-label-caps text-label-caps flex items-center gap-1.5 active:scale-95" data-platform-tab="x">
+                  <span class="font-bold text-xs">𝕏</span>
+                  <span>X (Twitter)</span>
+                </button>
+              </li>
+              <li>
+                <button class="platform-result-tab px-4 py-2 rounded-full bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest transition-colors font-label-caps text-label-caps flex items-center gap-1.5 active:scale-95" data-platform-tab="reddit">
+                  <span class="material-symbols-outlined text-sm fill-icon">forum</span>
+                  <span>Reddit</span>
+                </button>
+              </li>
+            </ul>
+          </nav>
+
+          <!-- 1. LINKEDIN POST PREVIEW CARD -->
+          <article id="preview-format-linkedin" class="post-preview-format-container bg-surface-container-lowest rounded-[24px] shadow-[0px_10px_30px_rgba(15,23,42,0.04)] p-5 flex flex-col gap-4 border border-surface-variant">
+            <!-- Author Header -->
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 rounded-full bg-surface-variant overflow-hidden shrink-0 border border-black/5">
+                <img alt="Sarah Jenkins" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=250&q=80"/>
+              </div>
+              <div class="min-w-0">
+                <h2 class="font-headline-sm text-base font-bold text-on-surface leading-tight">Sarah Jenkins</h2>
+                <p class="font-body-md text-xs text-on-surface-variant">Product Designer @ CreatorFlow • 2h • 🌐</p>
+              </div>
+            </div>
+
+            <!-- Post Text Content -->
+            <div id="linkedin-post-text" class="font-body-md text-sm text-on-surface whitespace-pre-wrap leading-relaxed">
+              Just wrapped up an incredible sprint designing the new analytics dashboard! 🚀
+            </div>
+
+            <!-- Media Attachment -->
+            <div id="linkedin-post-media" class="w-full rounded-2xl overflow-hidden bg-surface-container-high aspect-[4/3] relative"></div>
+
+            <!-- LinkedIn Engagement Counts -->
+            <div class="flex items-center justify-between text-xs text-on-surface-variant pt-1 border-b border-surface-container-high pb-2">
+              <div class="flex items-center gap-1">
+                <span class="w-4 h-4 rounded-full bg-[#0A66C2] text-white flex items-center justify-center text-[10px]">👍</span>
+                <span class="w-4 h-4 rounded-full bg-red-500 text-white flex items-center justify-center text-[10px]">❤️</span>
+                <span id="linkedin-like-count" class="font-medium ml-1">342</span>
+              </div>
+              <div class="flex gap-3">
+                <span>48 comments</span>
+                <span>•</span>
+                <span>19 reposts</span>
+              </div>
+            </div>
+
+            <!-- LinkedIn Engagement Action Bar -->
+            <div class="flex items-center justify-around text-on-surface-variant pt-1">
+              <button id="btn-linkedin-like" class="flex items-center gap-1.5 hover:text-primary transition-colors py-1 px-2 rounded-lg hover:bg-surface-container-high text-xs font-semibold">
+                <span class="material-symbols-outlined text-lg">thumb_up</span>
+                <span>Like</span>
+              </button>
+              <button class="flex items-center gap-1.5 hover:text-primary transition-colors py-1 px-2 rounded-lg hover:bg-surface-container-high text-xs font-semibold">
+                <span class="material-symbols-outlined text-lg">comment</span>
+                <span>Comment</span>
+              </button>
+              <button class="flex items-center gap-1.5 hover:text-primary transition-colors py-1 px-2 rounded-lg hover:bg-surface-container-high text-xs font-semibold">
+                <span class="material-symbols-outlined text-lg">repeat</span>
+                <span>Repost</span>
+              </button>
+              <button class="flex items-center gap-1.5 hover:text-primary transition-colors py-1 px-2 rounded-lg hover:bg-surface-container-high text-xs font-semibold">
+                <span class="material-symbols-outlined text-lg">send</span>
+                <span>Send</span>
+              </button>
+            </div>
+          </article>
+
+          <!-- 2. INSTAGRAM POST PREVIEW CARD -->
+          <article id="preview-format-instagram" class="post-preview-format-container hidden bg-surface-container-lowest rounded-[24px] shadow-[0px_10px_30px_rgba(15,23,42,0.04)] overflow-hidden flex flex-col border border-surface-variant">
+            <!-- Instagram Header -->
+            <div class="flex items-center justify-between p-3.5">
+              <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-full p-[2px] bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7]">
+                  <div class="w-full h-full rounded-full bg-white p-[1px] overflow-hidden">
+                    <img alt="Sarah" class="w-full h-full object-cover rounded-full" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=250&q=80"/>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex items-center gap-1">
+                    <span class="font-headline-sm text-xs font-bold text-on-surface">sarah.jenkins_</span>
+                    <span class="material-symbols-outlined text-xs text-blue-500 fill-icon">verified</span>
+                  </div>
+                  <p class="text-[11px] text-on-surface-variant">Original Audio • Creator Studio</p>
+                </div>
+              </div>
+              <button class="text-on-surface-variant"><span class="material-symbols-outlined">more_horiz</span></button>
+            </div>
+
+            <!-- Instagram Media Container -->
+            <div id="instagram-post-media" class="w-full bg-black relative"></div>
+
+            <!-- Instagram Actions Bar -->
+            <div class="p-3.5 flex flex-col gap-2">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                  <button id="btn-instagram-heart" class="text-on-surface hover:text-red-500 transition-colors">
+                    <span class="material-symbols-outlined text-2xl">favorite_border</span>
+                  </button>
+                  <button class="text-on-surface hover:text-primary transition-colors">
+                    <span class="material-symbols-outlined text-2xl">chat_bubble_outline</span>
+                  </button>
+                  <button class="text-on-surface hover:text-primary transition-colors">
+                    <span class="material-symbols-outlined text-2xl">send</span>
+                  </button>
+                </div>
+                <button class="text-on-surface hover:text-primary transition-colors">
+                  <span class="material-symbols-outlined text-2xl">bookmark_border</span>
+                </button>
+              </div>
+
+              <div id="instagram-likes-count" class="font-headline-sm text-xs font-bold text-on-surface">
+                1,429 likes
+              </div>
+
+              <!-- Instagram Caption -->
+              <div id="instagram-post-caption" class="font-body-md text-xs text-on-surface leading-relaxed">
+                <!-- Injected via JS -->
+              </div>
+
+              <div class="text-xs text-on-surface-variant mt-1">View all 84 comments</div>
+              <div class="text-[10px] uppercase text-on-surface-variant font-semibold tracking-wider">2 HOURS AGO</div>
+            </div>
+          </article>
+
+          <!-- 3. X (TWITTER) POST PREVIEW CARD -->
+          <article id="preview-format-x" class="post-preview-format-container hidden bg-surface-container-lowest rounded-[24px] shadow-[0px_10px_30px_rgba(15,23,42,0.04)] p-4 flex flex-col gap-3 border border-surface-variant">
+            <!-- Author Header -->
+            <div class="flex items-start justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full overflow-hidden shrink-0 border border-black/5">
+                  <img alt="Sarah" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=250&q=80"/>
+                </div>
+                <div>
+                  <div class="flex items-center gap-1">
+                    <span class="font-headline-sm text-sm font-bold text-on-surface">Sarah Jenkins</span>
+                    <span class="material-symbols-outlined text-sm text-blue-500 fill-icon">verified</span>
+                    <span class="text-xs text-on-surface-variant font-normal">@sarah_design • 2h</span>
+                  </div>
+                </div>
+              </div>
+              <span class="font-bold text-sm text-on-surface-variant">𝕏</span>
+            </div>
+
+            <!-- X Post Text -->
+            <div id="x-post-text" class="font-body-md text-sm text-on-surface whitespace-pre-wrap leading-relaxed pl-1">
+              <!-- Injected via JS -->
+            </div>
+
+            <!-- Media Container -->
+            <div id="x-post-media" class="w-full rounded-2xl overflow-hidden bg-surface-container-high aspect-video relative"></div>
+
+            <!-- X Interaction Stats Bar -->
+            <div class="flex items-center justify-between text-on-surface-variant pt-2 border-t border-surface-container text-xs px-2">
+              <button class="flex items-center gap-1 hover:text-blue-500 transition-colors">
+                <span class="material-symbols-outlined text-base">chat_bubble_outline</span>
+                <span>34</span>
+              </button>
+              <button class="flex items-center gap-1 hover:text-emerald-500 transition-colors">
+                <span class="material-symbols-outlined text-base">repeat</span>
+                <span>112</span>
+              </button>
+              <button id="btn-x-like" class="flex items-center gap-1 hover:text-rose-500 transition-colors">
+                <span class="material-symbols-outlined text-base">favorite_border</span>
+                <span id="x-like-count">845</span>
+              </button>
+              <button class="flex items-center gap-1 hover:text-blue-500 transition-colors">
+                <span class="material-symbols-outlined text-base">bookmark_border</span>
+                <span>92</span>
+              </button>
+              <button class="flex items-center gap-1 hover:text-blue-500 transition-colors">
+                <span class="material-symbols-outlined text-base">bar_chart</span>
+                <span>14.2K</span>
+              </button>
+            </div>
+          </article>
+
+          <!-- 4. REDDIT POST PREVIEW CARD -->
+          <article id="preview-format-reddit" class="post-preview-format-container hidden bg-surface-container-lowest rounded-[24px] shadow-[0px_10px_30px_rgba(15,23,42,0.04)] p-4 flex flex-col gap-3 border border-surface-variant">
+            <!-- Reddit Subreddit Header -->
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div class="w-7 h-7 rounded-full bg-[#FF4500] text-white flex items-center justify-center font-bold text-xs">
+                  r/
+                </div>
+                <div>
+                  <span class="font-headline-sm text-xs font-bold text-on-surface">r/design_critiques</span>
+                  <span class="text-[11px] text-on-surface-variant ml-1">• Posted by u/sarah_creates 2h ago</span>
+                </div>
+              </div>
+              <button class="bg-[#FF4500] text-white text-[11px] font-bold px-3 py-1 rounded-full">Join</button>
+            </div>
+
+            <!-- Reddit Post Title -->
+            <h3 id="reddit-post-title" class="font-headline-sm text-base font-bold text-on-surface leading-snug">
+              [Feedback Wanted] We just redesigned our entire creator analytics dashboard
+            </h3>
+
+            <!-- Reddit Body Text -->
+            <div id="reddit-post-text" class="font-body-md text-xs text-on-surface whitespace-pre-wrap leading-relaxed bg-surface-container-low p-3 rounded-xl border border-surface-container">
+              <!-- Injected via JS -->
+            </div>
+
+            <!-- Media Container -->
+            <div id="reddit-post-media" class="w-full rounded-xl overflow-hidden bg-surface-container-high aspect-[16/10] relative"></div>
+
+            <!-- Reddit Engagement Bar -->
+            <div class="flex items-center gap-2 pt-1">
+              <div class="bg-surface-container rounded-full flex items-center px-2 py-1 gap-2 text-xs font-bold">
+                <button id="btn-reddit-upvote" class="hover:text-[#FF4500] flex items-center">
+                  <span class="material-symbols-outlined text-sm">arrow_upward</span>
+                </button>
+                <span id="reddit-score-count">248</span>
+                <button class="hover:text-blue-500 flex items-center">
+                  <span class="material-symbols-outlined text-sm">arrow_downward</span>
+                </button>
+              </div>
+
+              <button class="bg-surface-container rounded-full flex items-center px-3 py-1 gap-1 text-xs text-on-surface-variant font-medium hover:bg-surface-container-high">
+                <span class="material-symbols-outlined text-sm">chat_bubble_outline</span>
+                <span>56 Comments</span>
+              </button>
+
+              <button class="bg-surface-container rounded-full flex items-center px-3 py-1 gap-1 text-xs text-on-surface-variant font-medium hover:bg-surface-container-high ml-auto">
+                <span class="material-symbols-outlined text-sm">share</span>
+                <span>Share</span>
+              </button>
+            </div>
+          </article>
+
+          <!-- Studio Actions Bento Grid -->
+          <div class="flex flex-col gap-2.5 mt-2">
+            <div class="grid grid-cols-2 gap-2.5">
+              <!-- Copy Caption -->
+              <button id="btn-copy-caption" class="flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-surface-container-lowest border border-outline-variant text-on-surface font-label-caps text-xs font-semibold hover:bg-surface-variant transition-all active:scale-95 shadow-sm">
+                <span class="material-symbols-outlined text-base">content_copy</span>
+                <span>Copy Caption</span>
+              </button>
+              
+              <!-- Edit Post -->
+              <button id="btn-edit-post" class="flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-surface-container-lowest border border-outline-variant text-on-surface font-label-caps text-xs font-semibold hover:bg-surface-variant transition-all active:scale-95 shadow-sm">
+                <span class="material-symbols-outlined text-base">edit_note</span>
+                <span>AI Tone & Edit</span>
+              </button>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2.5">
+              <!-- AI Upscale Photo -->
+              <button id="btn-open-upscale" class="flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-surface-container-lowest border border-primary/40 text-primary font-label-caps text-xs font-semibold hover:bg-primary/5 transition-all active:scale-95 shadow-sm">
+                <span class="material-symbols-outlined text-base fill-icon">auto_fix_high</span>
+                <span>AI Photo Upscale</span>
+              </button>
+              
+              <!-- Save to Drafts -->
+              <button id="btn-results-save-draft" class="flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-surface-container-lowest border border-outline-variant text-on-surface font-label-caps text-xs font-semibold hover:bg-surface-variant transition-all active:scale-95 shadow-sm">
+                <span class="material-symbols-outlined text-base">bookmark_add</span>
+                <span>Save Draft</span>
+              </button>
+            </div>
+
+            <!-- Share Now CTA -->
+            <button id="btn-share-now" class="w-full py-4 px-6 rounded-2xl bg-primary text-white font-headline-sm text-sm font-semibold flex items-center justify-center gap-2 shadow-[0px_4px_16px_rgba(70,72,212,0.3)] hover:bg-primary-container active:scale-[0.98] transition-all mt-1">
+              <span class="material-symbols-outlined text-lg fill-icon">send</span>
+              <span>Publish / Export Asset</span>
+            </button>
+          </div>
+        </main>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- SCREEN 4: AI CAPTION EDITOR (ai_caption_editor) -->
+      <!-- ================================================================= -->
+      <section id="screen-caption-editor" class="screen-view">
+        <!-- Top App Bar -->
+        <header class="sticky top-0 w-full z-40 glass-header flex items-center justify-between px-margin-mobile py-4">
+          <div class="flex items-center gap-3">
+            <button data-action="back" class="text-on-surface-variant hover:text-primary transition-colors active:scale-95">
+              <span class="material-symbols-outlined">arrow_back</span>
+            </button>
+            <h1 id="editor-screen-title" class="font-headline-sm text-lg font-bold text-primary">Edit Caption</h1>
+          </div>
+          <button onclick="showToast('AI Caption Assistant Active', 'auto_awesome')" class="text-on-surface-variant hover:text-primary">
+            <span class="material-symbols-outlined fill-icon text-primary">auto_awesome</span>
+          </button>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow px-margin-mobile py-4 flex flex-col gap-5 pb-32">
+          <!-- Textarea Area -->
+          <div class="bg-surface-container-lowest rounded-2xl p-4 shadow-[0px_10px_30px_rgba(15,23,42,0.04)] border border-surface-variant relative">
+            <textarea id="editor-caption-textarea" class="w-full bg-transparent border-none focus:ring-0 p-0 text-sm font-body-md text-on-surface resize-none h-36 placeholder-on-surface-variant/50" placeholder="Write or customize caption..."></textarea>
+            <div id="editor-char-counter" class="text-right text-xs font-semibold text-on-surface-variant opacity-70 mt-2">
+              0 / 2200
+            </div>
+          </div>
+
+          <!-- AI Tone Selector -->
+          <div class="flex flex-col gap-2">
+            <h2 class="font-label-caps text-xs uppercase font-bold text-on-surface-variant">Tone & Personality</h2>
+            <div class="flex flex-wrap gap-2">
+              <button class="editor-tone-btn px-4 py-2 rounded-full bg-primary text-on-primary font-label-caps text-label-caps active:scale-95 transition-all shadow-sm" data-tone="Professional">
+                Professional
+              </button>
+              <button class="editor-tone-btn px-4 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-label-caps text-label-caps active:scale-95 transition-all hover:bg-surface-variant" data-tone="Witty">
+                Witty
+              </button>
+              <button class="editor-tone-btn px-4 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-label-caps text-label-caps active:scale-95 transition-all hover:bg-surface-variant" data-tone="Hype">
+                Hype 🔥
+              </button>
+              <button class="editor-tone-btn px-4 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-label-caps text-label-caps active:scale-95 transition-all hover:bg-surface-variant" data-tone="Minimal">
+                Minimal
+              </button>
+              <button class="editor-tone-btn px-4 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-label-caps text-label-caps active:scale-95 transition-all hover:bg-surface-variant" data-tone="Storyteller">
+                Storyteller
+              </button>
+            </div>
+          </div>
+
+          <!-- AI Action Bento Grid -->
+          <div class="flex flex-col gap-2">
+            <h2 class="font-label-caps text-xs uppercase font-bold text-on-surface-variant flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-sm text-primary fill-icon">auto_awesome</span>
+              AI Quick Actions
+            </h2>
+            <div class="grid grid-cols-2 gap-2.5">
+              <button class="flex items-center gap-2.5 p-3 rounded-2xl bg-surface-container-lowest shadow-sm border border-surface-variant hover:border-primary hover:bg-surface-bright transition-all active:scale-95 text-left" data-ai-action="shorten">
+                <span class="material-symbols-outlined text-primary text-xl">short_text</span>
+                <span class="font-body-md text-xs font-semibold text-on-surface">Shorten</span>
+              </button>
+
+              <button class="flex items-center gap-2.5 p-3 rounded-2xl bg-surface-container-lowest shadow-sm border border-surface-variant hover:border-primary hover:bg-surface-bright transition-all active:scale-95 text-left" data-ai-action="emojis">
+                <span class="material-symbols-outlined text-amber-500 text-xl">add_reaction</span>
+                <span class="font-body-md text-xs font-semibold text-on-surface">Add Emojis</span>
+              </button>
+
+              <button class="flex items-center gap-2.5 p-3 rounded-2xl bg-surface-container-lowest shadow-sm border border-surface-variant hover:border-primary hover:bg-surface-bright transition-all active:scale-95 text-left" data-ai-action="punchy">
+                <span class="material-symbols-outlined text-purple-600 text-xl">bolt</span>
+                <span class="font-body-md text-xs font-semibold text-on-surface">Make it Punchy</span>
+              </button>
+
+              <button class="flex items-center gap-2.5 p-3 rounded-2xl bg-surface-container-lowest shadow-sm border border-surface-variant hover:border-primary hover:bg-surface-bright transition-all active:scale-95 text-left" data-ai-action="alternatives">
+                <span class="material-symbols-outlined text-emerald-600 text-xl">magic_button</span>
+                <span class="font-body-md text-xs font-semibold text-on-surface">Alternatives</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Custom AI Prompt Re-writer -->
+          <div class="bg-surface-container-lowest rounded-2xl p-3 shadow-sm border border-surface-variant flex items-center gap-2">
+            <input type="text" id="editor-custom-prompt" placeholder="Ask AI: e.g. make it punchier for Gen Z" class="flex-1 bg-surface-container-low border-0 rounded-xl px-3 py-2 text-xs text-on-surface focus:ring-1 focus:ring-primary"/>
+            <button id="btn-editor-custom-generate" class="bg-primary text-white p-2 rounded-xl text-xs font-semibold active:scale-95 transition-all shrink-0">
+              <span class="material-symbols-outlined text-base">auto_fix_high</span>
+            </button>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-col gap-2.5 mt-2">
+            <button id="btn-editor-apply" class="w-full bg-primary text-on-primary py-3.5 rounded-2xl font-headline-sm text-sm font-semibold active:scale-95 transition-all shadow-md">
+              Apply Changes
+            </button>
+            <button id="btn-editor-cancel" class="w-full bg-transparent text-on-surface-variant py-3 rounded-2xl font-headline-sm text-sm font-semibold active:scale-95 transition-all border border-outline-variant hover:bg-surface-variant">
+              Cancel
+            </button>
+          </div>
+        </main>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- SCREEN 5: AI PHOTO UPSCALE / ENHANCER (ai_photo_upscale) -->
+      <!-- ================================================================= -->
+      <section id="screen-upscale" class="screen-view">
+        <!-- Top App Bar -->
+        <header class="sticky top-0 w-full z-40 glass-header flex items-center justify-between px-margin-mobile py-4">
+          <div class="flex items-center gap-3">
+            <button data-action="back" class="text-on-surface-variant hover:text-primary transition-colors active:scale-95">
+              <span class="material-symbols-outlined">arrow_back</span>
+            </button>
+            <h1 class="font-headline-sm text-lg font-bold text-primary">AI Upscale Studio</h1>
+          </div>
+          <button onclick="showToast('AI Enhancement Engine 4.0 Active', 'auto_fix_high')" class="text-on-surface-variant hover:text-primary">
+            <span class="material-symbols-outlined fill-icon text-primary">auto_fix_high</span>
+          </button>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow px-margin-mobile py-4 flex flex-col gap-5 pb-32">
+          <!-- Upscale Preview Info -->
+          <div class="flex justify-between items-center px-1">
+            <span id="upscale-orig-dim" class="font-body-md text-xs font-semibold text-on-surface-variant">Original: 1024x1024 (24.8 MB)</span>
+            <span class="font-label-caps text-[10px] text-primary font-bold px-2.5 py-0.5 bg-primary/10 rounded-full">Interactive Split</span>
+          </div>
+
+          <!-- Before / After Interactive Slider Container -->
+          <div class="before-after-wrapper relative w-full aspect-square rounded-[24px] overflow-hidden shadow-[0px_10px_30px_rgba(15,23,42,0.08)] bg-surface-container-high isolate border border-surface-variant">
+            <!-- Before Image (Blurry/Original Simulation) -->
+            <div id="before-image-container" class="absolute inset-0 clip-layer-left">
+              <div id="before-img-el" class="w-full h-full bg-cover bg-center filter blur-[1.5px] brightness-95" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBmwv3MRMgtMjO2NwV7wI7qq0pj0iIys_eaYuGXO01GpBbOaE2AsfDnnCBAeW75KJKGats7NlXi_A1gQfkKjbFiaKXqzSqkoj8Qy1TroQfqu4lELAQuQboKlmCHqgICoVYXMH8uHJsYSpzne3fmfAszQoe7l14_-VG0oqrajlzVLtS-E8NA4LDyxz0tlCs9nus58Uh8LXiGG2h3jvC5uaDX37RByaOzn7HpChFod6POMoX5OoISZQA')"></div>
+            </div>
+
+            <!-- After Image (Sharp/Upscaled Simulation) -->
+            <div id="after-image-container" class="absolute inset-0 clip-layer-right">
+              <div id="after-img-el" class="w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDA-BVZD7hS4duhQpLvDHEytrdW_adMw1StEQsKpEshAwkjv5Xs6oSyrNZTtiAoqKRo9e7xDnoreA4lL_1EqGnuBoqhCZcJv1IpgctxlBhFIVMrFBv3InBRvxeI2MAoWYhcTsaYjJpNCJDUGIef_tTjqrDRPIh7-j3Ak8MHAlG5LOlukatg7msuNH4oqn4_R7s_4ZN_MOx2AR49NQATKe0cCqcOTPDvNQXoK_NsTwUmh4LrZ4UOAJ8')"></div>
+            </div>
+
+            <!-- Slider Line & Handle -->
+            <div id="slider-line" class="slider-line"></div>
+            <div id="slider-handle" class="slider-handle-button">
+              <span class="material-symbols-outlined text-sm text-primary">swap_horiz</span>
+            </div>
+
+            <!-- Badges -->
+            <div class="absolute top-3 left-3 font-label-caps text-[10px] text-white bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full z-20 pointer-events-none">Original</div>
+            <div class="absolute top-3 right-3 font-label-caps text-[10px] text-white bg-primary/90 backdrop-blur-md px-2.5 py-1 rounded-full z-20 pointer-events-none">4K AI Upscaled</div>
+
+            <!-- Range input for drag control -->
+            <input type="range" min="0" max="100" value="50" id="compare-slider" class="before-after-slider absolute inset-0 opacity-0 cursor-ew-resize z-30 w-full h-full" aria-label="Compare before and after"/>
+          </div>
+
+          <!-- Controls Section -->
+          <div class="glass-panel rounded-2xl p-4 flex flex-col gap-4 shadow-sm border border-surface-variant">
+            <!-- Upscale Factor -->
+            <div>
+              <h3 class="font-label-caps text-xs uppercase font-bold text-on-surface-variant mb-2">Upscale Factor</h3>
+              <div class="grid grid-cols-4 gap-2">
+                <button class="upscale-factor-btn flex flex-col items-center justify-center gap-0.5 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest hover:bg-surface-variant transition-colors active:scale-95" data-factor="1x">
+                  <span class="factor-num font-headline-md text-sm font-bold text-on-surface">1x</span>
+                  <span class="font-label-caps text-[9px] text-on-surface-variant">Enhance</span>
+                </button>
+                <button class="upscale-factor-btn flex flex-col items-center justify-center gap-0.5 py-2.5 rounded-xl border-2 border-primary bg-primary/5 text-primary hover:bg-primary/10 transition-colors active:scale-95 shadow-[0_0_15px_rgba(70,72,212,0.15)] relative overflow-hidden" data-factor="2x">
+                  <span class="factor-num font-headline-md text-sm font-bold text-primary">2x</span>
+                  <span class="font-label-caps text-[9px] text-primary font-bold">2048px</span>
+                  <div class="absolute inset-0 bg-gradient-to-tr from-primary/0 via-primary/15 to-primary/0 translate-x-[-100%] animate-[shimmer_2s_infinite]"></div>
+                </button>
+                <button class="upscale-factor-btn flex flex-col items-center justify-center gap-0.5 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest hover:bg-surface-variant transition-colors active:scale-95" data-factor="4x">
+                  <span class="factor-num font-headline-md text-sm font-bold text-on-surface">4x</span>
+                  <span class="font-label-caps text-[9px] text-on-surface-variant">4096px</span>
+                </button>
+                <button class="upscale-factor-btn flex flex-col items-center justify-center gap-0.5 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest hover:bg-surface-variant transition-colors active:scale-95 opacity-60" data-factor="8x">
+                  <span class="factor-num font-headline-md text-sm font-bold text-on-surface flex items-center gap-0.5">8x <span class="material-symbols-outlined text-[11px]">lock</span></span>
+                  <span class="font-label-caps text-[9px] text-on-surface-variant">Pro</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Enhancement Mode Toggles -->
+            <div>
+              <h3 class="font-label-caps text-xs uppercase font-bold text-on-surface-variant mb-2">AI Enhancements</h3>
+              <div class="flex flex-wrap gap-2">
+                <label class="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-primary bg-primary/10 text-primary cursor-pointer hover:bg-primary/20 transition-colors text-xs font-semibold">
+                  <input type="checkbox" checked class="upscale-filter-checkbox rounded text-primary focus:ring-primary w-3.5 h-3.5 bg-transparent border-primary" data-filter="detail"/>
+                  <span>Detail Boost</span>
+                </label>
+                <label class="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-outline-variant bg-surface-container-lowest text-on-surface cursor-pointer hover:bg-surface-variant transition-colors text-xs font-semibold">
+                  <input type="checkbox" class="upscale-filter-checkbox rounded text-primary focus:ring-primary w-3.5 h-3.5 bg-transparent border-outline-variant" data-filter="denoise"/>
+                  <span>Denoise</span>
+                </label>
+                <label class="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-primary bg-primary/10 text-primary cursor-pointer hover:bg-primary/20 transition-colors text-xs font-semibold">
+                  <input type="checkbox" checked class="upscale-filter-checkbox rounded text-primary focus:ring-primary w-3.5 h-3.5 bg-transparent border-primary" data-filter="faceRefine"/>
+                  <span>Face Refine</span>
+                </label>
+                <label class="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-outline-variant bg-surface-container-lowest text-on-surface cursor-pointer hover:bg-surface-variant transition-colors text-xs font-semibold">
+                  <input type="checkbox" class="upscale-filter-checkbox rounded text-primary focus:ring-primary w-3.5 h-3.5 bg-transparent border-outline-variant" data-filter="colorFix"/>
+                  <span>Color Fix</span>
+                </label>
+                <label class="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-outline-variant bg-surface-container-lowest text-on-surface cursor-pointer hover:bg-surface-variant transition-colors text-xs font-semibold">
+                  <input type="checkbox" class="upscale-filter-checkbox rounded text-primary focus:ring-primary w-3.5 h-3.5 bg-transparent border-outline-variant" data-filter="hdr"/>
+                  <span>HDR Light</span>
+                </label>
+                <label class="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-outline-variant bg-surface-container-lowest text-on-surface cursor-pointer hover:bg-surface-variant transition-colors text-xs font-semibold">
+                  <input type="checkbox" class="upscale-filter-checkbox rounded text-primary focus:ring-primary w-3.5 h-3.5 bg-transparent border-outline-variant" data-filter="sharpness"/>
+                  <span>Sharpness</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-col gap-2.5">
+            <button id="btn-run-upscale-process" class="w-full bg-primary text-on-primary font-headline-sm text-sm font-semibold py-3.5 rounded-2xl flex items-center justify-center gap-2 active:scale-[0.98] transition-all shadow-[0_4px_14px_0_rgba(99,102,241,0.35)] hover:bg-primary-container">
+              <span class="material-symbols-outlined text-base fill-icon">auto_awesome</span>
+              <span>Upscale Image</span>
+            </button>
+            <button id="btn-save-upscale-draft" class="w-full bg-surface-container-lowest text-primary font-headline-sm text-sm font-semibold py-3 rounded-2xl flex items-center justify-center gap-2 active:scale-[0.98] transition-all border border-outline-variant hover:bg-surface-variant">
+              <span class="material-symbols-outlined text-base">check</span>
+              <span>Apply to Generated Posts</span>
+            </button>
+          </div>
+        </main>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- SCREEN 6: DRAFTS TAB (screen-drafts) -->
+      <!-- ================================================================= -->
+      <section id="screen-drafts" class="screen-view">
+        <header class="sticky top-0 w-full z-40 glass-header flex items-center justify-between px-margin-mobile py-4">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary text-2xl fill-icon">edit_note</span>
+            <h1 class="font-display-lg text-xl font-bold tracking-tight text-on-surface">Saved Drafts</h1>
+          </div>
+          <button onclick="showToast('Drafts auto-sync enabled', 'cloud_sync')" class="text-on-surface-variant hover:text-primary">
+            <span class="material-symbols-outlined">sync</span>
+          </button>
+        </header>
+
+        <main class="flex-grow px-margin-mobile py-4 flex flex-col gap-4 pb-32">
+          <p class="font-body-md text-xs text-on-surface-variant">Access your multi-platform post drafts and edit them on the fly.</p>
+          <div id="drafts-list-container" class="flex flex-col gap-3">
+            <!-- Injected via JS -->
+          </div>
+        </main>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- SCREEN 7: PROFILE TAB (screen-profile) -->
+      <!-- ================================================================= -->
+      <section id="screen-profile" class="screen-view">
+        <header class="sticky top-0 w-full z-40 glass-header flex items-center justify-between px-margin-mobile py-4">
+          <h1 class="font-display-lg text-xl font-bold tracking-tight text-on-surface">Creator Profile</h1>
+          <button onclick="showToast('Settings saved', 'settings')" class="text-on-surface-variant hover:text-primary">
+            <span class="material-symbols-outlined">settings</span>
+          </button>
+        </header>
+
+        <main class="flex-grow px-margin-mobile py-4 flex flex-col gap-5 pb-32">
+          <!-- Profile Card -->
+          <div class="bg-surface-container-lowest rounded-3xl p-5 shadow-[0px_10px_30px_rgba(15,23,42,0.04)] border border-surface-variant flex items-center gap-4">
+            <div class="w-16 h-16 rounded-full overflow-hidden shrink-0 border-2 border-primary">
+              <img alt="Sarah Jenkins" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=250&q=80"/>
+            </div>
+            <div>
+              <div class="flex items-center gap-1.5">
+                <h2 class="font-headline-sm text-base font-bold text-on-surface">Sarah Jenkins</h2>
+                <span class="material-symbols-outlined text-sm text-primary fill-icon">verified</span>
+              </div>
+              <p class="font-body-md text-xs text-on-surface-variant">Product Designer & Creator</p>
+              <span class="inline-block mt-1 bg-primary/10 text-primary font-label-caps text-[10px] px-2 py-0.5 rounded-full font-bold">Studio Pro Tier</span>
+            </div>
+          </div>
+
+          <!-- Creator Stats -->
+          <div class="grid grid-cols-3 gap-2.5">
+            <div class="bg-surface-container-lowest p-3 rounded-2xl border border-surface-variant text-center">
+              <span class="font-headline-sm text-base font-bold text-primary">128</span>
+              <p class="text-[10px] text-on-surface-variant uppercase font-semibold mt-0.5">Posts</p>
+            </div>
+            <div class="bg-surface-container-lowest p-3 rounded-2xl border border-surface-variant text-center">
+              <span class="font-headline-sm text-base font-bold text-primary">45.2K</span>
+              <p class="text-[10px] text-on-surface-variant uppercase font-semibold mt-0.5">Reach</p>
+            </div>
+            <div class="bg-surface-container-lowest p-3 rounded-2xl border border-surface-variant text-center">
+              <span class="font-headline-sm text-base font-bold text-emerald-600">4 / 4</span>
+              <p class="text-[10px] text-on-surface-variant uppercase font-semibold mt-0.5">Channels</p>
+            </div>
+          </div>
+
+          <!-- Connected Channels List -->
+          <div class="bg-surface-container-lowest rounded-2xl p-4 shadow-sm border border-surface-variant flex flex-col gap-3">
+            <h3 class="font-label-caps text-xs uppercase font-bold text-on-surface-variant">Connected Accounts</h3>
+            
+            <div class="flex items-center justify-between text-xs">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-lg bg-[#0A66C2] text-white flex items-center justify-center font-bold text-[10px]">in</span>
+                <span class="font-semibold text-on-surface">LinkedIn</span>
+              </div>
+              <span class="text-emerald-600 font-semibold flex items-center gap-0.5"><span class="material-symbols-outlined text-xs">check_circle</span> Active</span>
+            </div>
+
+            <div class="flex items-center justify-between text-xs">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-lg bg-gradient-to-tr from-[#f9ce34] to-[#ee2a7b] text-white flex items-center justify-center font-bold text-[10px]">IG</span>
+                <span class="font-semibold text-on-surface">Instagram</span>
+              </div>
+              <span class="text-emerald-600 font-semibold flex items-center gap-0.5"><span class="material-symbols-outlined text-xs">check_circle</span> Active</span>
+            </div>
+
+            <div class="flex items-center justify-between text-xs">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-lg bg-black text-white flex items-center justify-center font-bold text-[10px]">𝕏</span>
+                <span class="font-semibold text-on-surface">X (Twitter)</span>
+              </div>
+              <span class="text-emerald-600 font-semibold flex items-center gap-0.5"><span class="material-symbols-outlined text-xs">check_circle</span> Active</span>
+            </div>
+
+            <div class="flex items-center justify-between text-xs">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-lg bg-[#FF4500] text-white flex items-center justify-center font-bold text-[10px]">r/</span>
+                <span class="font-semibold text-on-surface">Reddit</span>
+              </div>
+              <span class="text-emerald-600 font-semibold flex items-center gap-0.5"><span class="material-symbols-outlined text-xs">check_circle</span> Active</span>
+            </div>
+          </div>
+
+          <!-- Appearance Settings -->
+          <div class="bg-surface-container-lowest rounded-2xl p-4 shadow-sm border border-surface-variant flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-primary text-xl">dark_mode</span>
+              <div>
+                <span class="font-semibold text-xs text-on-surface block">Dark Mode</span>
+                <span class="text-[11px] text-on-surface-variant">Switch light & dark theme</span>
+              </div>
+            </div>
+            <label class="custom-toggle">
+              <input type="checkbox" id="profile-dark-mode-toggle"/>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </main>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- FIXED BOTTOM NAVIGATION BAR (Mobile Shell) -->
+      <!-- ================================================================= -->
+      <nav class="fixed bottom-0 left-0 w-full z-40 glass-nav shadow-[0px_-10px_30px_rgba(15,23,42,0.06)] border-t border-white/50 flex justify-around items-center h-16 px-4">
+        <!-- Home / Upload -->
+        <button data-nav-target="screen-upload" class="flex flex-col items-center gap-1 text-primary active:scale-90 transition-transform duration-200">
+          <span class="material-symbols-outlined fill-icon text-2xl">home</span>
+          <span class="font-label-caps text-[10px] font-bold">Home</span>
+        </button>
+
+        <!-- Studio / Results -->
+        <button data-nav-target="screen-results" class="flex flex-col items-center gap-1 text-on-surface-variant hover:text-primary active:scale-90 transition-transform duration-200">
+          <span class="material-symbols-outlined text-2xl">auto_awesome</span>
+          <span class="font-label-caps text-[10px] font-semibold">Studio</span>
+        </button>
+
+        <!-- Drafts -->
+        <button data-nav-target="screen-drafts" class="flex flex-col items-center gap-1 text-on-surface-variant hover:text-primary active:scale-90 transition-transform duration-200">
+          <span class="material-symbols-outlined text-2xl">edit_note</span>
+          <span class="font-label-caps text-[10px] font-semibold">Drafts</span>
+        </button>
+
+        <!-- Profile -->
+        <button data-nav-target="screen-profile" class="flex flex-col items-center gap-1 text-on-surface-variant hover:text-primary active:scale-90 transition-transform duration-200">
+          <span class="material-symbols-outlined text-2xl">person</span>
+          <span class="font-label-caps text-[10px] font-semibold">Profile</span>
+        </button>
+      </nav>
+
+    </div>
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- MODAL: SHARE SHEET -->
+  <!-- ================================================================= -->
+  <div id="share-sheet-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden items-end justify-center p-0 transition-opacity">
+    <div class="w-full max-w-[480px] bg-surface-container-lowest rounded-t-[32px] p-6 shadow-2xl flex flex-col gap-4 animate-slide-up border-t border-white/20">
+      <div class="w-12 h-1.5 bg-surface-container-highest rounded-full mx-auto mb-1"></div>
+      
+      <div class="flex justify-between items-center">
+        <div>
+          <h3 class="font-headline-sm text-lg font-bold text-on-surface">Publish & Export</h3>
+          <p class="font-body-md text-xs text-on-surface-variant">Send directly to your connected channels.</p>
+        </div>
+        <button onclick="closeShareModal()" class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high">
+          <span class="material-symbols-outlined text-sm">close</span>
+        </button>
+      </div>
+
+      <div class="grid grid-cols-4 gap-3 py-2 text-center">
+        <button onclick="executePlatformShare('linkedin')" class="flex flex-col items-center gap-1.5 active:scale-95 transition-transform">
+          <div class="w-12 h-12 rounded-2xl bg-[#0A66C2] text-white flex items-center justify-center shadow-md">
+            <span class="material-symbols-outlined text-2xl fill-icon">work</span>
+          </div>
+          <span class="font-label-caps text-[10px] font-semibold text-on-surface">LinkedIn</span>
+        </button>
+
+        <button onclick="executePlatformShare('instagram')" class="flex flex-col items-center gap-1.5 active:scale-95 transition-transform">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] text-white flex items-center justify-center shadow-md">
+            <span class="material-symbols-outlined text-2xl fill-icon">photo_camera</span>
+          </div>
+          <span class="font-label-caps text-[10px] font-semibold text-on-surface">Instagram</span>
+        </button>
+
+        <button onclick="executePlatformShare('x')" class="flex flex-col items-center gap-1.5 active:scale-95 transition-transform">
+          <div class="w-12 h-12 rounded-2xl bg-black text-white flex items-center justify-center shadow-md">
+            <span class="font-bold text-lg">𝕏</span>
+          </div>
+          <span class="font-label-caps text-[10px] font-semibold text-on-surface">X</span>
+        </button>
+
+        <button onclick="executePlatformShare('reddit')" class="flex flex-col items-center gap-1.5 active:scale-95 transition-transform">
+          <div class="w-12 h-12 rounded-2xl bg-[#FF4500] text-white flex items-center justify-center shadow-md">
+            <span class="material-symbols-outlined text-2xl fill-icon">forum</span>
+          </div>
+          <span class="font-label-caps text-[10px] font-semibold text-on-surface">Reddit</span>
+        </button>
+      </div>
+
+      <div class="flex flex-col gap-2 pt-2 border-t border-surface-container">
+        <button onclick="closeShareModal(); showToast('High-res media bundle downloaded!', 'download')" class="w-full py-3 rounded-xl bg-surface-container text-on-surface font-label-caps text-xs font-semibold flex items-center justify-center gap-2 hover:bg-surface-container-high active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-base">download</span>
+          <span>Download All Optimized Formats</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Logic -->
+  <script src="js/app.js"></script>
+</body>
+</html>
